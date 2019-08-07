@@ -33,6 +33,24 @@ int sys_sem_open(const char * name, unsigned int value)
 		tmp[i]=get_fs_byte(name+i);
 		if(tmp[i]=='\0') break;
 	}
+	//在SHM_COUNT内，按照name查询信号量
+	for(i=0;i <SHM_COUNT;i++)
+	{
+		if(strcmp(stb[i].name, tmp)==0)
+		{
+			return &(stb+i) //找到返回信号量地址
+		}
+	}
+	if(SHM_COUNT > i)	//没有找到需要新建
+	{
+		stb[i].name = tmp;
+		stb[i].value =  value;
+		stb[i].queue = NULL;
+	}
+	if(SHM_COUNT == i)
+	{	
+		return NULL;
+	}
 }
 /*
  *
