@@ -1,9 +1,4 @@
-/*************************************************************************
-	> File Name: who.c
-	> Author: ben
-	> Mail: benben5893@gmail.com 
-	> Created Time: 2019年07月31日 星期三 09时42分37秒
- ************************************************************************/
+
 /**
  *
  *
@@ -13,9 +8,26 @@
  *
  *
  * */
+
+#include<asm/segment.h>
+#define NAME_LEN  23
 int sys_iam(const char * name)
 {
-	return 0;
+	char tmp[23];
+	int i = 0 ;
+	char c;
+	for(i=0 ;i < NAME_LEN;i++)
+	{
+		if ((c = get_fs_byte(name+i))!= '\0')
+			tmp[i] = c;
+		break;
+	}
+	if(i>= NAME_LEN)
+	{
+		printk("Name is too long!");
+		return -1;
+	}
+	return i;
 }
 
 int sys_whoami()
