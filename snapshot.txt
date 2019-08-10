@@ -1,0 +1,25 @@
+~
+~
+~
+~
+~
+[/usr/root]# gcc -o iam
+.bash_history   hello           linux-0.00      shoelace.tar.Z
+.profile        hello.c         linux0.tgz
+README          hello.o         mtools.howto
+gcclib140       iam.c           shoe
+[/usr/root]# gcc -o iam
+.bash_history   hello           linux-0.00      shoelace.tar.Z
+.profile        hello.c         linux0.tgz
+README          hello.o         mtools.howto
+gcclib140       iam.c           shoe
+[/usr/root]# gcc -o iam iam.c -WALL
+gcc-cc1: Invalid option `-WALL'
+iam.c:13: parse error before `iam'
+iam.c:13: warning: data definition lacks type or storage class
+[/usr/root]# gcc -o iam iam.c -Wall
+iam.c:13: parse error before `iam'
+iam.c:13: warning: data definition lacks type or storage class
+iam.c: In function main:
+iam.c:17: warning: implicit declaration of function `iam'
+[/usr/root]# ß
