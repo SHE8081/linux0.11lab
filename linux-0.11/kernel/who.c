@@ -8,29 +8,53 @@
  *
  *
  * */
-
+#include<linux/kernel.h>
 #include<asm/segment.h>
 #define NAME_LEN  23
+
+char kernelarray[NAME_LEN];
+int reallen = 0;
+
 int sys_iam(const char * name)
 {
-	char tmp[23];
 	int i = 0 ;
 	char c;
 	for(i=0 ;i < NAME_LEN;i++)
 	{
 		if ((c = get_fs_byte(name+i))!= '\0')
-			tmp[i] = c;
-		break;
+			kernelarray[i] = c;
+		else
+			break;
 	}
 	if(i>= NAME_LEN)
 	{
 		printk("Name is too long!");
 		return -1;
 	}
-	return i;
+	reallen = i ;
+	return reallen;
 }
 
-int sys_whoami()
+int sys_hellokernel()
 {
+	printk("Hello kernel! \n");
 	return 0;
+}
+
+int sys_whoami(char * name, unsigned int size)
+{	
+	int i = 0;
+	if(reallen > size)
+	{
+		printk("size of name is out of bound! \n");
+		return -1;
+	}else
+	{
+		while (kernelarray[i]!='\0')
+		{
+			put_fs_byte(kernelarray[i],(name+i));
+			i++;
+		}
+		return i;
+	}
 }
